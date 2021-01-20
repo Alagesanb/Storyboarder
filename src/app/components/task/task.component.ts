@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TaskService } from '../../task.service';
+import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-task',
@@ -7,13 +9,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./task.component.css']
 })
 export class TaskComponent implements OnInit {
+  @ViewChild(ToastContainerDirective, { static: true })
+  toastContainer: ToastContainerDirective;
   taskForm: FormGroup;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private taskService: TaskService,private toastrService: ToastrService ) { }
 
   ngOnInit(): void {
-
+    this.toastrService.overlayContainer = this.toastContainer;
     this.taskForm = this.formBuilder.group({
       tasktitle: ['', [Validators.required]],
       taskdate: ['', [Validators.required, Validators.pattern(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/)]],
@@ -24,7 +28,11 @@ export class TaskComponent implements OnInit {
 
   createTask(formValues){
     this.submitted = true;
-    console.log(formValues);
+    this.taskService.createTasks(formValues).then((result) => {
+      this.toastrService.success('Task created');
+    }).catch((error) => {
+      this.toastrService.error(error.message);
+    });
     
   }
 
