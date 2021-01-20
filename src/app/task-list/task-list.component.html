@@ -1,0 +1,18 @@
+<table>
+    <thead>
+      <th>Task Title</th>
+      <th>Date</th>
+      <th>Switch Task</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks">
+
+        <td>{{task.tasktitle}}</td>
+        <td>{{task.taskdate}}</td>
+        <td>{{task.switchtask}}</td>
+        <td>
+            <button (click)="delete(task.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
