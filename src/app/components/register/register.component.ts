@@ -12,6 +12,7 @@ export class RegisterComponent implements OnInit {
   User: any = ['Super Admin', 'Author', 'Reader']; 
 
   registerForm: FormGroup;
+  private formSubmitAttempt: boolean;
 
   constructor( private formBuilder: FormBuilder, private  authService:  AuthService) { }
 
@@ -23,11 +24,20 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  isFieldInvalid(field: string) {
+    return (
+    (!this.registerForm.get(field).valid && this.registerForm.get(field).touched) ||
+    (this.registerForm.get(field).untouched && this.formSubmitAttempt)
+    );
+  }
+
   Registration(formValues){
 
     console.log(formValues);
+    if (this.registerForm.valid) {
     this.authService.Registration(formValues.email, formValues.password);
-
+    }
+    this.formSubmitAttempt = true;
   }
 
 }

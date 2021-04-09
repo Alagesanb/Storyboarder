@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit,ViewChild ,Output,EventEmitter} from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from "@angular/router";
 import { AuthService } from  '../../auth/auth.service';
@@ -10,6 +10,9 @@ import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  @Output() public sidenavToggle = new EventEmitter();
+
+
   @ViewChild(ToastContainerDirective, { static: true })
   toastContainer: ToastContainerDirective;
 
@@ -19,6 +22,9 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.isLoggedIn$ = this.authService.isLogged; 
     
+  }
+  public onToggleSidenav = () => {
+    this.sidenavToggle.emit();
   }
 
   logout(){

@@ -9,12 +9,18 @@
       <form [formGroup]="loginForm" (submit)="Login(loginForm.value)" class="example-form">
         <mat-card-content>
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Username" formControlName="username">
+            <input matInput placeholder="Username" formControlName="username" required>
+            <mat-error *ngIf="isFieldInvalid('username')">
+              Please inform your user name
+            </mat-error>
           </mat-form-field>
   
           <mat-form-field class="example-full-width">
-            <input type="password"  matInput placeholder="Password" formControlName="password">
+            <input type="password"  matInput placeholder="Password" formControlName="password" required>
           </mat-form-field>
+          <mat-error *ngIf="isFieldInvalid('password')">
+            Please inform your password
+          </mat-error>
         </mat-card-content>
         <button mat-stroked-button color="accent" class="btn-block">Login</button>
       </form>

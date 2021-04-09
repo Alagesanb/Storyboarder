@@ -31,6 +31,7 @@ import { MaterialModule } from '../app/material/material.module';
 import { TaskComponent } from './components/task/task.component';
 import { ErrorComponent } from './components/error/error.component';
 import { TaskListComponent } from './task-list/task-list.component';
+import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 //import { MustMatch } from './_helpers/must-match/must-match.component';
 
 
@@ -49,6 +50,7 @@ import { TaskListComponent } from './task-list/task-list.component';
     TaskComponent,
     ErrorComponent,
     TaskListComponent,
+    SidenavListComponent
 
   ],
   imports: [

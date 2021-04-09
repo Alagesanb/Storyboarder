@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   toastContainer: ToastContainerDirective;
 
   loginForm: FormGroup;
+  private formSubmitAttempt: boolean;
   
 
 
@@ -31,11 +32,20 @@ export class LoginComponent implements OnInit {
     });
   }
 
+
+  isFieldInvalid(field: string) {
+      return (
+      (!this.loginForm.get(field).valid && this.loginForm.get(field).touched) ||
+      (this.loginForm.get(field).untouched && this.formSubmitAttempt)
+      );
+  }
+
   
 
 
   Login(formValues){
     console.log(formValues);
+    if (this.loginForm.valid) {
     this.authService.LogIn(formValues.username, formValues.password)
     .then((result) => {
       this.toastrService.success('Login Success');
@@ -43,6 +53,7 @@ export class LoginComponent implements OnInit {
       this.toastrService.error(error.message);
     })
   }
-
+  this.formSubmitAttempt = true;
+  }
   
 }

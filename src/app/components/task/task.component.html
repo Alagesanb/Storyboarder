@@ -1,24 +1,49 @@
 <mat-card  class="login-card">
     <mat-card-header>
-        <mat-card-title>Create Task</mat-card-title>
+        <mat-card-title>Task</mat-card-title>
     </mat-card-header>
     <form [formGroup]="taskForm" (submit)="createTask(taskForm.value)" class="example-form">
     <mat-card-content>
     <!-- The form goes here -->
         <!-- Form elements are here -->
-        <mat-form-field>
-        <input  matInput  placeholder="tasktitle" formControlName="tasktitle"  required>
-        </mat-form-field>
-        <mat-form-field>
-        <input  type="date" matInput  placeholder="taskdate" formControlName="taskdate"  required>
-        </mat-form-field>
-        <mat-form-field>
-            <input  matInput  placeholder="switchtask" formControlName="switchtask"  required>
-        </mat-form-field>
+        <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+            <mat-form-field fxFlex appearance="fill">
+                <mat-label>User</mat-label>
+                <select matNativeControl required formControlName="user">
+                  <option  [value]="userObject.email">
+                    {{ userObject.email }}
+                  </option>
+                </select>
+            </mat-form-field>
+            <mat-form-field fxFlex appearance="fill">
+            <input  matInput  placeholder="Task" formControlName="tasktitle"  required>
+            </mat-form-field>
+            <mat-form-field fxFlex appearance="fill">
+                <mat-label>Old Task Status</mat-label>
+                <select matNativeControl required formControlName="taskstatus">
+                  <option *ngFor="let state of status" [value]="state.value">
+                    {{ state.viewValue }}
+                  </option>
+                </select>
+            </mat-form-field>
+        </div>
+        <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+            <mat-form-field fxFlex appearance="fill">
+                <mat-label>Task Date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="taskdate"  required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            <mat-form-field fxFlex appearance="fill" [hidden]="taskForm.value.taskstatus === 'inprogress'">
+                <input  matInput  placeholder="Switch Task" formControlName="switchtask"  required>
+            </mat-form-field>
+        </div>
+        
+        
     </mat-card-content>
     
     <mat-card-actions>
-        <button  mat-raised-button   color="primary">Create Task</button>
+        <button  mat-raised-button   color="primary" >{{taskForm.value.taskstatus === 'inprogress' ? "Submit" : "Create Task"}}</button>
         <button  mat-raised-button   color="info" type="reset" (click)="onReset()">Cancel</button>
     </mat-card-actions>
     

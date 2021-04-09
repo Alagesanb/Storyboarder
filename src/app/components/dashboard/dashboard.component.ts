@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from  '../../auth/auth.service';
 import { Router } from "@angular/router";
+import { TaskService } from '../../task.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,10 +10,10 @@ import { Router } from "@angular/router";
 })
 export class DashboardComponent implements OnInit {
   userdata: any; 
-  constructor(public router: Router,public  authService:  AuthService) { }
+  constructor(public router: Router,public  authService:  AuthService,public taskService: TaskService) { }
   
   ngOnInit(): void {
-    this.userdata = this.authService.SetUserData;
+    let data = this.taskService.getTasks();
 
   }
 

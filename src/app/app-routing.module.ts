@@ -15,13 +15,15 @@ import { SecureInnerPages} from './shared/guard/secure-inner-pages.guard.ts.guar
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'home', component: HomeComponent },
-  { path: 'register', component: RegisterComponent , canActivate: [SecureInnerPages]},
-  { path: 'login', component: LoginComponent,canActivate: [SecureInnerPages] },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path:  'forgot-password', component:  ForgotPasswordComponent,canActivate: [SecureInnerPages] },
-  { path:  'verify-email', component:  VerifyEmailComponent,canActivate: [SecureInnerPages] },
+  { path: 'register', component: RegisterComponent},
+  { path: 'login', component: LoginComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path:  'forgot-password', component:  ForgotPasswordComponent },
+  { path:  'verify-email', component:  VerifyEmailComponent },
   { path: 'task',component: TaskComponent  },
-  { path:'tasklist',component: TaskListComponent}
+  { path:'tasklist',component: TaskListComponent},
+
+  
 ];
 
 
